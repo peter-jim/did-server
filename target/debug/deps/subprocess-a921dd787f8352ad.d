@@ -1,0 +1,12 @@
+/Users/lance/myProject/did-server/target/debug/deps/subprocess-a921dd787f8352ad.rmeta: /Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/subprocess-0.2.9/src/lib.rs /Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/subprocess-0.2.9/src/builder.rs /Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/subprocess-0.2.9/src/communicate.rs /Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/subprocess-0.2.9/src/popen.rs /Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/subprocess-0.2.9/src/posix.rs /Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/subprocess-0.2.9/src/os_common.rs
+
+/Users/lance/myProject/did-server/target/debug/deps/libsubprocess-a921dd787f8352ad.rlib: /Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/subprocess-0.2.9/src/lib.rs /Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/subprocess-0.2.9/src/builder.rs /Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/subprocess-0.2.9/src/communicate.rs /Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/subprocess-0.2.9/src/popen.rs /Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/subprocess-0.2.9/src/posix.rs /Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/subprocess-0.2.9/src/os_common.rs
+
+/Users/lance/myProject/did-server/target/debug/deps/subprocess-a921dd787f8352ad.d: /Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/subprocess-0.2.9/src/lib.rs /Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/subprocess-0.2.9/src/builder.rs /Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/subprocess-0.2.9/src/communicate.rs /Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/subprocess-0.2.9/src/popen.rs /Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/subprocess-0.2.9/src/posix.rs /Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/subprocess-0.2.9/src/os_common.rs
+
+/Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/subprocess-0.2.9/src/lib.rs:
+/Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/subprocess-0.2.9/src/builder.rs:
+/Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/subprocess-0.2.9/src/communicate.rs:
+/Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/subprocess-0.2.9/src/popen.rs:
+/Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/subprocess-0.2.9/src/posix.rs:
+/Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/subprocess-0.2.9/src/os_common.rs:

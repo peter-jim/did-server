@@ -1,0 +1,14 @@
+/Users/lance/myProject/did-server/target/debug/deps/frunk_core-536fcaec5b979f96.rmeta: /Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/frunk_core-0.4.0/src/lib.rs /Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/frunk_core-0.4.0/src/macros.rs /Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/frunk_core-0.4.0/src/coproduct.rs /Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/frunk_core-0.4.0/src/generic.rs /Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/frunk_core-0.4.0/src/hlist.rs /Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/frunk_core-0.4.0/src/indices.rs /Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/frunk_core-0.4.0/src/labelled.rs /Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/frunk_core-0.4.0/src/path.rs /Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/frunk_core-0.4.0/src/traits.rs /Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/frunk_core-0.4.0/src/tuples.rs
+
+/Users/lance/myProject/did-server/target/debug/deps/frunk_core-536fcaec5b979f96.d: /Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/frunk_core-0.4.0/src/lib.rs /Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/frunk_core-0.4.0/src/macros.rs /Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/frunk_core-0.4.0/src/coproduct.rs /Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/frunk_core-0.4.0/src/generic.rs /Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/frunk_core-0.4.0/src/hlist.rs /Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/frunk_core-0.4.0/src/indices.rs /Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/frunk_core-0.4.0/src/labelled.rs /Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/frunk_core-0.4.0/src/path.rs /Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/frunk_core-0.4.0/src/traits.rs /Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/frunk_core-0.4.0/src/tuples.rs
+
+/Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/frunk_core-0.4.0/src/lib.rs:
+/Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/frunk_core-0.4.0/src/macros.rs:
+/Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/frunk_core-0.4.0/src/coproduct.rs:
+/Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/frunk_core-0.4.0/src/generic.rs:
+/Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/frunk_core-0.4.0/src/hlist.rs:
+/Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/frunk_core-0.4.0/src/indices.rs:
+/Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/frunk_core-0.4.0/src/labelled.rs:
+/Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/frunk_core-0.4.0/src/path.rs:
+/Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/frunk_core-0.4.0/src/traits.rs:
+/Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/frunk_core-0.4.0/src/tuples.rs:

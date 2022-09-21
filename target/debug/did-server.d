@@ -1,1 +1,1 @@
-/root/did-server/target/debug/did-server: /root/did-server/src/main.rs
+/Users/lance/myProject/did-server/target/debug/did-server: /Users/lance/myProject/did-server/src/main.rs
