@@ -1,7 +1,0 @@
-/Users/lance/myProject/did-server/target/debug/deps/either-f9d45b0ec8447cb5.rmeta: /Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/either-1.8.0/src/lib.rs
-
-/Users/lance/myProject/did-server/target/debug/deps/libeither-f9d45b0ec8447cb5.rlib: /Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/either-1.8.0/src/lib.rs
-
-/Users/lance/myProject/did-server/target/debug/deps/either-f9d45b0ec8447cb5.d: /Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/either-1.8.0/src/lib.rs
-
-/Users/lance/.cargo/registry/src/github.com-1ecc6299db9ec823/either-1.8.0/src/lib.rs:
