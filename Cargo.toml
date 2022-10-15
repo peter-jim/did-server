@@ -15,3 +15,10 @@ serde = { version = "1.0", features = ["derive"] }
 sqlx = { version = "0.6.2", features = ["runtime-actix-native-tls", "mysql"] }
 #时间
 chrono = {version = "0.4.19",features=["serde"]}
+
+jsonwebtoken = "8.1.0"
+
+
+[lib]
+path = "./src/service/lib.rs"
+db = "./src/db/lib.rs"

@@ -1,6 +1,10 @@
+use actix_web::web::Json;
+use actix_web::{error, HttpResponse, HttpResponseBuilder, HttpServer, App, web, Responder, get, post};
 
-use actix_web::{get, web, App, HttpServer, Responder, post};
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
+use sqlx::mysql::{MySqlPoolOptions, MySqlRow};
+use sqlx::{FromRow, MySql, Pool};
+use crate::AppState;
 
 
 #[derive(Debug,Clone,Serialize, Deserialize)]
@@ -20,50 +24,35 @@ struct Profilemark{
 }
 
 
-#[post("/did")]
-async fn didrecommand(user: web::Json<Usermark>) -> impl Responder {
+
+
+
+#[get("/user/agreement")]
+async fn agreement(pool: web::Data<AppState>) -> impl Responder {
     // format!("Hello {}!", name)
     println!("接收到信息");
-    // format!("Hello {:?}!", name.)
-
-
-    //将请求处理成sql语句
-    let min_age = user.age[0];
-    let max_age = user.age[1];
-
-}
-
-#[post("/hide")]
-async fn hide(user: web::Json<Usermark>) -> impl Responder {
-    // format!("Hello {}!", name)
-    println!("接收到信息");
-    // format!("Hello {:?}!", name.)
-
-
-    //将请求处理成sql语句
-    let min_age = user.age[0];
-    let max_age = user.age[1];
-
-}
-
-
-#[post("/profile")]
-async fn profile(user: web::Json<Usermark>) -> impl Responder {
-    // format!("Hello {}!", name)
-    println!("接收到信息");
-    // format!("Hello {:?}!", name.)
-
-
-    //将请求处理成sql语句
-    let min_age = user.age[0];
-    let max_age = user.age[1];
-
+    let sql = "select userAgreement from sys_plate_config ".to_string();
+    let res = sqlx::query::<MySql>(&sql).fetch_all(&pool.pool).await;
+    format!("{:?}!", res.unwrap())
     
-
-
 }
 
+#[get("/user/privacy")]
+async fn privacy_policy(pool: web::Data<AppState>) -> impl Responder {
+    // format!("Hello {}!", name)
+    println!("接收到信息");
+    let sql = "select privacyPolicy from sys_plate_config ".to_string();
+    let res = sqlx::query::<MySql>(&sql).fetch_all(&pool.pool).await;
+    format!("{:?}!", res.unwrap())
+    
+}
 
-// fn Recommandfilter(user) -> Vec<> {
-
-// }
+#[get("/user/aboutus")]
+async fn aboutus(pool: web::Data<AppState>) -> impl Responder {
+    // format!("Hello {}!", name)
+    println!("接收到信息");
+    let sql = "select aboutUs from sys_plate_config ".to_string();
+    let res = sqlx::query::<MySql>(&sql).fetch_all(&pool.pool).await;
+    format!("{:?}!", res.unwrap())
+    
+}
