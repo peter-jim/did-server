@@ -1,6 +1,7 @@
 use actix_web::web::Json;
 use actix_web::{error, HttpResponse, HttpResponseBuilder, HttpServer, App, web, Responder, get, post};
 use serde::{Serialize, Deserialize};
+use serde_json;
 use sqlx::mysql::{MySqlPoolOptions, MySqlRow};
 use sqlx::{FromRow, MySql, Pool};
 use crate::AppState;
@@ -27,7 +28,7 @@ struct UserInfoResponse{
 }
 
 
-#[get("/user/info")]
+#[post("/user/info")]
 async fn user_info( user: web::Json<Wechatmark>, pool: web::Data<AppState>) -> impl Responder {
     // format!("Hello {}!", name)
     println!("接收到信息");
@@ -43,6 +44,13 @@ async fn user_info( user: web::Json<Wechatmark>, pool: web::Data<AppState>) -> i
     //     println!("{:?}",i."row");
     // }
     // println!("{:?}",res);
-    format!("{:?}!", res)
+
+        
+    // format!("{:?}", serde_json::to_value(&res.unwrap())  )
+    let body = serde_json::to_string(&res.unwrap()).unwrap();
+    // return ;
+    HttpResponse::Ok().body(body)
+    
+
     
 }

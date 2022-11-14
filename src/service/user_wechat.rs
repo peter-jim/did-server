@@ -17,23 +17,22 @@ struct WechatResponse{
 }
 
 
-#[get("/user/wechat")]
+#[post("/user/wechat")]
 async fn user_wechat( user: web::Json<Wechatmark>, pool: web::Data<AppState>) -> impl Responder {
     // format!("Hello {}!", name)
     println!("接收到信息");
 
     let sql = format!("select wechat from sys_user_info where id = {:?} ",user.0.id);
     println!("{:?}",sql.clone());
-    let res = sqlx::query_as::< _,WechatResponse>(&sql)
-    
-    .fetch_one(&pool.pool).await.unwrap();
+    let res = sqlx::query_as::< _,WechatResponse>(&sql).fetch_one(&pool.pool).await;
     
     // res[]
 
     // for i in res{
     //     println!("{:?}",i."row");
     // }
-    println!("{:?}",res.wechat);
-    format!("{:?}!", 1)
-    
+    // format!("{:?}", serde_json::to_value(&res.unwrap())  )
+    let body = serde_json::to_string(&res.unwrap()).unwrap();
+    // return ;
+    HttpResponse::Ok().body(body)
 }

@@ -30,7 +30,7 @@ struct UserMomentResponse{
 }
 
 
-#[get("/user/moment")]
+#[post("/user/moment")]
 async fn user_moment( user: web::Json<Wechatmark>, pool: web::Data<AppState>) -> impl Responder {
     // format!("Hello {}!", name)
     println!("接收到信息");
@@ -39,6 +39,8 @@ async fn user_moment( user: web::Json<Wechatmark>, pool: web::Data<AppState>) ->
     println!("{:?}",sql.clone());
     // let res = sqlx::query_as::< _,UserInfoResponse>(&sql).fetch_one(&pool.pool).await;
     let res = sqlx::query_as::< MySql,UserMomentResponse>(&sql).fetch_all(&pool.pool).await;
-    format!("{:?}!", res)
+    let body = serde_json::to_string(&res.unwrap()).unwrap();
+    // return ;
+    HttpResponse::Ok().body(body)
     
 }

@@ -19,7 +19,7 @@ struct CommentResponse{
      to_user_id:i32,
 }
 
-#[get("/user/comment")]
+#[post("/user/comment")]
 async fn user_comment( user: web::Json<Commentmark>, pool: web::Data<AppState>) -> impl Responder {
     // format!("Hello {}!", name)
     println!("接收到信息");
@@ -29,6 +29,8 @@ async fn user_comment( user: web::Json<Commentmark>, pool: web::Data<AppState>) 
     // let res = sqlx::query_as::< _,UserInfoResponse>(&sql).fetch_one(&pool.pool).await;
     let res = sqlx::query_as::< MySql,CommentResponse>(&sql).fetch_all(&pool.pool).await;
 
-    format!("{:?}!", res)
+    let body = serde_json::to_string(&res.unwrap()).unwrap();
+    // return ;
+    HttpResponse::Ok().body(body)
     
 }
