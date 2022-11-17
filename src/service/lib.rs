@@ -10,6 +10,7 @@ pub mod user_moment;
 pub mod user_wechat;
 pub mod recommend;
 pub mod user_comment;
+pub mod user_question;
 
 
 pub struct AppState{

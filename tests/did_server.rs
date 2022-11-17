@@ -269,6 +269,9 @@ async fn user_moment( user: web::Json<Wechatmark>, pool: web::Data<AppState>) ->
     // let res = sqlx::query_as::< _,UserInfoResponse>(&sql).fetch_one(&pool.pool).await;
     let res = sqlx::query_as::< MySql,UserMomentResponse>(&sql).fetch_all(&pool.pool).await;
     format!("{:?}!", res)
+
+
+   
     
 }
 
