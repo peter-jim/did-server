@@ -28,6 +28,12 @@ mobc = "0.7.2"
 #提供测试模块
 tokio = { version = "1.21.0", features = ["full"] }
 
+
+#私钥->公 secp256k1
+
+#生成私钥和公
+
+
 [lib]
 path = "./src/service/lib.rs"
 db = "./src/db/lib.rs"
