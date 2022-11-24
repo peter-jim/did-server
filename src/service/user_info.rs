@@ -44,13 +44,10 @@ async fn user_info( user: web::Json<Wechatmark>, pool: web::Data<AppState>) -> i
     //     println!("{:?}",i."row");
     // }
     // println!("{:?}",res);
-
         
     // format!("{:?}", serde_json::to_value(&res.unwrap())  )
     let body = serde_json::to_string(&res.unwrap()).unwrap();
     // return ;
     HttpResponse::Ok().body(body)
-    
-
     
 }
