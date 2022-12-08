@@ -11,6 +11,8 @@ pub mod user_wechat;
 pub mod recommend;
 pub mod user_comment;
 pub mod user_question;
+pub mod user_frzs;
+
 
 
 pub struct AppState{

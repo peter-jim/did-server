@@ -19,8 +19,8 @@ async fn test_redis_con() {
 
     let mut conn = pool.get().await.unwrap();
 
-    // let s:i32 = redis::cmd("PING");
-    // println!("{:?}", s);// "PONG
+    let s:String = redis::cmd("PING").query_async(&mut conn as &mut Connection).await.unwrap();
+    println!("{:?}", s);// "PONG
 
 
 }

@@ -51,6 +51,7 @@ async fn test_get_count() {
         num:i32
     }
 
+     
     let pool = MySqlPoolOptions::new()
         .max_connections(50)
         .connect("mysql://test:123456@114.55.67.80:3306/social")

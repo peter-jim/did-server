@@ -1,7 +1,7 @@
 
 
 use actix_web::{get, web, App, HttpServer, Responder};
-use did_server::{AppState, user_moment::user_moment, user_info::user_info, user_wechat::user_wechat, order_did::order_did, privacy_policy::privacy_policy, agreement::agreement,didrecommand::didrecommand,user_comment::user_comment, aboutus::about_us, user_question::{get_question, post_question}};
+use did_server::{AppState, user_moment::user_moment, user_info::user_info, user_wechat::user_wechat, order_did::order_did, privacy_policy::privacy_policy, agreement::agreement,didrecommand::didrecommand,user_comment::user_comment, aboutus::about_us, user_question::{get_question, post_question}, user_frzs::add_friend};
 use sqlx::{mysql::MySqlPoolOptions, Pool, MySql};
 
 
@@ -39,6 +39,7 @@ async fn main() -> std::io::Result<()> {
         .service(user_comment)
         .service(get_question)
         .service(post_question)
+        .service(add_friend)
     })
     .bind(("0.0.0.0", 8080))?
     .run()
