@@ -1,5 +1,7 @@
 
 
+use std::fs::File;
+
 use actix_web::{get, web, App, HttpServer, Responder};
 use did_server::{AppState, user_moment::user_moment, user_info::user_info, user_wechat::user_wechat, order_did::order_did, privacy_policy::privacy_policy, agreement::agreement,didrecommand::didrecommand,user_comment::user_comment, aboutus::about_us, user_question::{get_question, post_question}, user_frzs::add_friend};
 use sqlx::{mysql::MySqlPoolOptions, Pool, MySql};
@@ -15,10 +17,16 @@ async fn greet(name: web::Path<String>) -> impl Responder {
 
 #[actix_web::main] // or #[tokio::main]
 async fn main() -> std::io::Result<()> {
-    print!("connecting mysql ");
+
+    /////从input.json文件读取输入数据
+    let f = File::open("src/config/conf.json").unwrap();
+    let v: serde_json::Value = serde_json::from_reader(f).unwrap();
+    let mysql = v["mysql"].as_str().unwrap();
+
+    println!("connecting mysql {:?} ",mysql);
     let pool = MySqlPoolOptions::new()
     .max_connections(50)
-    .connect("mysql://test:123456@114.55.67.80:3306/social")
+    .connect(mysql)
     .await.unwrap_or_else(|_|
          { std::process::exit(0x0100) });
 

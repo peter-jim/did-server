@@ -1,0 +1,12 @@
+/Users/lance/myProject/did-server/target/debug/deps/sqlformat-933bb59c51b60a8b.rmeta: /Users/lance/.cargo/registry/src/rsproxy.cn-8f6827c7555bfaf8/sqlformat-0.2.0/src/lib.rs /Users/lance/.cargo/registry/src/rsproxy.cn-8f6827c7555bfaf8/sqlformat-0.2.0/src/formatter.rs /Users/lance/.cargo/registry/src/rsproxy.cn-8f6827c7555bfaf8/sqlformat-0.2.0/src/indentation.rs /Users/lance/.cargo/registry/src/rsproxy.cn-8f6827c7555bfaf8/sqlformat-0.2.0/src/inline_block.rs /Users/lance/.cargo/registry/src/rsproxy.cn-8f6827c7555bfaf8/sqlformat-0.2.0/src/params.rs /Users/lance/.cargo/registry/src/rsproxy.cn-8f6827c7555bfaf8/sqlformat-0.2.0/src/tokenizer.rs
+
+/Users/lance/myProject/did-server/target/debug/deps/libsqlformat-933bb59c51b60a8b.rlib: /Users/lance/.cargo/registry/src/rsproxy.cn-8f6827c7555bfaf8/sqlformat-0.2.0/src/lib.rs /Users/lance/.cargo/registry/src/rsproxy.cn-8f6827c7555bfaf8/sqlformat-0.2.0/src/formatter.rs /Users/lance/.cargo/registry/src/rsproxy.cn-8f6827c7555bfaf8/sqlformat-0.2.0/src/indentation.rs /Users/lance/.cargo/registry/src/rsproxy.cn-8f6827c7555bfaf8/sqlformat-0.2.0/src/inline_block.rs /Users/lance/.cargo/registry/src/rsproxy.cn-8f6827c7555bfaf8/sqlformat-0.2.0/src/params.rs /Users/lance/.cargo/registry/src/rsproxy.cn-8f6827c7555bfaf8/sqlformat-0.2.0/src/tokenizer.rs
+
+/Users/lance/myProject/did-server/target/debug/deps/sqlformat-933bb59c51b60a8b.d: /Users/lance/.cargo/registry/src/rsproxy.cn-8f6827c7555bfaf8/sqlformat-0.2.0/src/lib.rs /Users/lance/.cargo/registry/src/rsproxy.cn-8f6827c7555bfaf8/sqlformat-0.2.0/src/formatter.rs /Users/lance/.cargo/registry/src/rsproxy.cn-8f6827c7555bfaf8/sqlformat-0.2.0/src/indentation.rs /Users/lance/.cargo/registry/src/rsproxy.cn-8f6827c7555bfaf8/sqlformat-0.2.0/src/inline_block.rs /Users/lance/.cargo/registry/src/rsproxy.cn-8f6827c7555bfaf8/sqlformat-0.2.0/src/params.rs /Users/lance/.cargo/registry/src/rsproxy.cn-8f6827c7555bfaf8/sqlformat-0.2.0/src/tokenizer.rs
+
+/Users/lance/.cargo/registry/src/rsproxy.cn-8f6827c7555bfaf8/sqlformat-0.2.0/src/lib.rs:
+/Users/lance/.cargo/registry/src/rsproxy.cn-8f6827c7555bfaf8/sqlformat-0.2.0/src/formatter.rs:
+/Users/lance/.cargo/registry/src/rsproxy.cn-8f6827c7555bfaf8/sqlformat-0.2.0/src/indentation.rs:
+/Users/lance/.cargo/registry/src/rsproxy.cn-8f6827c7555bfaf8/sqlformat-0.2.0/src/inline_block.rs:
+/Users/lance/.cargo/registry/src/rsproxy.cn-8f6827c7555bfaf8/sqlformat-0.2.0/src/params.rs:
+/Users/lance/.cargo/registry/src/rsproxy.cn-8f6827c7555bfaf8/sqlformat-0.2.0/src/tokenizer.rs:
