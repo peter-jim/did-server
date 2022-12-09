@@ -29,8 +29,16 @@ async fn user_comment( user: web::Json<Commentmark>, pool: web::Data<AppState>) 
     // let res = sqlx::query_as::< _,UserInfoResponse>(&sql).fetch_one(&pool.pool).await;
     let res = sqlx::query_as::< MySql,CommentResponse>(&sql).fetch_all(&pool.pool).await;
 
-    let body = serde_json::to_string(&res.unwrap()).unwrap();
-    // return ;
-    HttpResponse::Ok().body(body)
+    match res {
+        Ok(res) =>{
+            let body = serde_json::to_string(&res).unwrap();
+   
+            // return ;
+            HttpResponse::Ok().body(body)
+        }
+        Err(res) =>{
+            HttpResponse::InternalServerError().body("error")
+        }
+    }
     
 }

@@ -19,10 +19,18 @@ async fn agreement(pool: web::Data<AppState>) -> impl Responder {
     let sql = "select useragreement from sys_plate_config ".to_string();
     let res = sqlx::query_as::< MySql,AgreementResponse>(&sql).fetch_one(&pool.pool).await;
     
-     // println!("{:?}",res.unwrap());
-     let body = serde_json::to_string(&res.unwrap()).unwrap();
+    
+    match res {
+        Ok(res) =>{
+            let body = serde_json::to_string(&res).unwrap();
    
-     // return ;
-     HttpResponse::Ok().body(body)
+            // return ;
+            HttpResponse::Ok().body(body)
+        }
+        Err(res) =>{
+            HttpResponse::InternalServerError().body("error")
+        }
+    }
+
     
 }

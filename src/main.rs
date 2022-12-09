@@ -5,8 +5,7 @@ use did_server::{AppState, user_moment::user_moment, user_info::user_info, user_
 use sqlx::{mysql::MySqlPoolOptions, Pool, MySql};
 
 
-#[get("/hello/{name}
-")]
+#[get("/hello/{name}")]
 async fn greet(name: web::Path<String>) -> impl Responder {
     format!("Hello {name}!")
 }

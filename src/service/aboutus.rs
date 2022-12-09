@@ -26,9 +26,23 @@ async fn about_us(pool: web::Data<AppState>) -> impl Responder {
     // let res:String = sqlx::query_scalar(r#"select aboutUs from sys_plate_config "#).fetch_one(&pool.pool).await;
 
     // println!("{:?}",res.unwrap());
-    let body = serde_json::to_string(&res.unwrap()).unwrap();
+
+    match res {
+        Ok(res) =>{
+            let body = serde_json::to_string(&res).unwrap();
    
-    // return ;
-    HttpResponse::Ok().body(body)
+            // return ;
+            HttpResponse::Ok().body(body)
+        }
+        Err(res) =>{
+            HttpResponse::InternalServerError().body("error")
+        }
+    }
+
+
+    // let body = serde_json::to_string(&res.unwrap()).unwrap();
+   
+    // // return ;
+    // HttpResponse::Ok().body(body)
     
 }

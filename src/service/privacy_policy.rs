@@ -20,10 +20,16 @@ async fn privacy_policy(pool: web::Data<AppState>) -> impl Responder {
     let sql = "select privacypolicy from sys_plate_config ".to_string();
     let res = sqlx::query_as::< MySql,PrivacyPolicyResponse>(&sql).fetch_one(&pool.pool).await;
     
-    // println!("{:?}",res.unwrap());
-    let body = serde_json::to_string(&res.unwrap()).unwrap();
-  
-    // return ;
-    HttpResponse::Ok().body(body)
+    match res {
+        Ok(res) =>{
+            let body = serde_json::to_string(&res).unwrap();
+   
+            // return ;
+            HttpResponse::Ok().body(body)
+        }
+        Err(res) =>{
+            HttpResponse::InternalServerError().body("error")
+        }
+    }
     
 }
