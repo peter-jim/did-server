@@ -59,7 +59,7 @@ async fn didrecommand(name: web::Json<Usermark>,pool: web::Data<AppState>) -> im
     //step 0 . 判断参数是否为整数 “ ” 。合法性判断，避免sql注入攻击 
 
 
-    let mut sql:String = String::from("select id,city,identity,gender,nickname,head_sculpture,update_time,address,publickey from sys_user_info  ") ;
+    let mut sql:String = String::from(" select id,city,identity,gender,nickname,head_sculpture,update_time,address,publickey from sys_user_info  ") ;
     
     // match name.gender {
 
