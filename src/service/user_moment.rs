@@ -11,7 +11,7 @@ use crate::AppState;
 
 #[derive(Debug,Clone,Serialize, Deserialize,FromRow)]
 struct Wechatmark{
-    id:u32 ,   //要查询的微信号id
+    id:String ,   //要查询的微信号id
 }
 
 
