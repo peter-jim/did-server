@@ -1,0 +1,11 @@
+./target/*
+./src/config/*
+/src/config/*
+/src/target/*
+/src/target
+./target/*
+./Cargo.lock
+*.json
+Cargo.lock
+
+
