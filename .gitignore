@@ -1,6 +1,6 @@
 ./target/*
 ./src/config/*
-./target
+./target/*
 ./Cargo.lock
 
 *.json
