@@ -3,7 +3,7 @@
 use std::fs::File;
 
 use actix_web::{get, web, App, HttpServer, Responder};
-use did_server::{AppState, user_moment::user_moment, user_info::user_info, user_wechat::user_wechat, order_did::order_did, privacy_policy::privacy_policy, agreement::agreement,didrecommand::didrecommand,user_comment::user_comment, aboutus::about_us, user_question::{get_question, post_question}, user_frzs::add_friend};
+use did_server::{AppState, user_moment::user_moment, user_info::user_info, user_wechat::user_wechat, order_did::order_did, privacy_policy::privacy_policy, agreement::agreement,didrecommand::didrecommand,user_comment::user_comment, aboutus::about_us, user_question::{get_question, post_question}, user_frzs::add_friend, publish_check::publish_check, user_frzsnew::{user_frzsnews, user_profrzsnews}};
 use sqlx::{mysql::MySqlPoolOptions, Pool, MySql};
 
 
@@ -47,6 +47,10 @@ async fn main() -> std::io::Result<()> {
         .service(get_question)
         .service(post_question)
         .service(add_friend)
+        .service(publish_check)
+        .service(user_profrzsnews)
+        .service(user_frzsnews)
+        
     })
     .bind(("0.0.0.0", 8080))?
     .run()

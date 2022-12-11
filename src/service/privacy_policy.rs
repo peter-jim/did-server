@@ -25,6 +25,7 @@ async fn privacy_policy(pool: web::Data<AppState>) -> impl Responder {
             let body = serde_json::to_string(&res).unwrap();
    
             // return ;
+
             HttpResponse::Ok().body(body)
         }
         Err(res) =>{

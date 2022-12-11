@@ -12,6 +12,8 @@ pub mod recommend;
 pub mod user_comment;
 pub mod user_question;
 pub mod user_frzs;
+pub mod publish_check;
+pub mod user_frzsnew;
 
 
 
