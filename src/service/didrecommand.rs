@@ -16,7 +16,7 @@ struct Usermark{
     // email:String,
     // age:(String,String),   //年龄
     // identity:String,   //身份，buider
-    // gender:String,   // 0 代表女 ，1代表男，2代表全部
+    gender:Option<String>,   // 0 代表女 ，1代表男，2代表全部
 }
 
 
