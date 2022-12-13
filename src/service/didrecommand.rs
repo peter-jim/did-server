@@ -9,12 +9,14 @@ use sqlx::{FromRow, MySql, Pool};
 use crate::AppState;
 #[derive(Debug,Clone,Serialize, Deserialize)]
 struct Usermark{
+    page:String,
+    size:String,
     id:String,
-    location:String ,   //实现下拉位置
-    email:String,
-    age:(String,String),   //年龄
-    identity:String,   //身份，buider
-    gender:String,   // 0 代表女 ，1代表男，2代表全部
+    // location:String ,   //实现下拉位置
+    // email:String,
+    // age:(String,String),   //年龄
+    // identity:String,   //身份，buider
+    // gender:String,   // 0 代表女 ，1代表男，2代表全部
 }
 
 
