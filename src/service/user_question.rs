@@ -41,8 +41,11 @@ async fn get_question(pool: web::Data<AppState>) -> impl Responder {
     let res = sqlx::query_as::<MySql, QuestionResponse>(&sql)
         .fetch_all(&pool.pool)
         .await;
-    // let res:String = sqlx::query_scalar(r#"select aboutUs from sys_plate_config "#).fetch_one(&pool.pool).await;
-    // println!("{:?}",res.unwrap());
+
+
+
+
+
     let body = serde_json::to_string(&res.unwrap()).unwrap();
     // return ;
     HttpResponse::Ok().body(body)
