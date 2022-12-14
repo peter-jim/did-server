@@ -10,17 +10,17 @@ use crate::AppState;
 
 #[derive(Debug, Clone, Serialize, Deserialize, FromRow)]
 struct QuestionResponse {
-    question_id: i32,
+    questionId: i32,
     discraption: String,
     choice: String,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, FromRow)]
 struct Questionmark {
-    user_id: u32, //要查询的微信号id
+    userId: u32, //要查询的微信号id
     discraption: String,
-    question_id: u32,
-    update_time: String,
+    questionId: u32,
+    updateTime: String,
     choice: String,
 }
 
@@ -30,11 +30,14 @@ struct QuestionNum {
     num: i32,
 }
 
+
+
+
 #[get("/user/getquestion")]
 async fn get_question(pool: web::Data<AppState>) -> impl Responder {
     // format!("Hello {}!", name)
     println!("接收到信息");
-    let sql = "select question_id,discraption,choice from sys_question ".to_string();
+    let sql = "select questionId,discraption,choice from sys_question ".to_string();
     let res = sqlx::query_as::<MySql, QuestionResponse>(&sql)
         .fetch_all(&pool.pool)
         .await;
@@ -50,11 +53,11 @@ async fn post_question(user: web::Json<Questionmark>, pool: web::Data<AppState>)
     println!("接收到信息");
 
     let check_sql =
-        " select count(id) as num  from sys_user_question where question_id = ? and  user_id = ?  ";
+        " select count(id) as num  from sys_user_question where questionId = ? and  userId = ?  ";
 
     let res = sqlx::query_as::<MySql, QuestionNum>(check_sql)
-        .bind(user.0.question_id)
-        .bind(user.0.user_id)
+        .bind(user.0.questionId)
+        .bind(user.0.userId)
         .fetch_one(&pool.pool)
         .await;
 
@@ -63,13 +66,13 @@ async fn post_question(user: web::Json<Questionmark>, pool: web::Data<AppState>)
             //存在执行更新
 
             let update_sql =
-            " update sys_user_question set choice = ? , update_time = ? where question_id = ? and  user_id = ? ";
+            " update sys_user_question set choice = ? , updateTime = ? where questionId = ? and  userId = ? ";
 
             let insert_res = sqlx::query::<MySql>(update_sql)
                 .bind(user.0.choice)
-                .bind(user.0.update_time)
-                .bind(user.0.question_id)
-                .bind(user.0.user_id)
+                .bind(user.0.updateTime)
+                .bind(user.0.questionId)
+                .bind(user.0.userId)
                 .execute(&pool.pool)
                 .await;
             match insert_res {
@@ -82,14 +85,14 @@ async fn post_question(user: web::Json<Questionmark>, pool: web::Data<AppState>)
             }
         } else {
             //不存在执行插入
-            let sql = r#"insert into  sys_user_question(question_id,discraption,user_id,update_time,choice)
+            let sql = r#"insert into  sys_user_question(questionId,discraption,userId,updateTime,choice)
             VALUES (?,?,?,?,?)
             "#;
             let insert_res = sqlx::query::<MySql>(sql)
-                .bind(user.0.question_id)
+                .bind(user.0.questionId)
                 .bind(user.0.discraption)
-                .bind(user.0.user_id)
-                .bind(user.0.update_time)
+                .bind(user.0.userId)
+                .bind(user.0.updateTime)
                 .bind(user.0.choice)
                 .execute(&pool.pool)
                 .await;
@@ -129,14 +132,14 @@ async fn execute_sql(
                 true
             } else {
                 //数据不存在，执行添加
-                let sql = r#"insert into  sys_user_question(question_id,discraption,user_id,update_time,choice)
+                let sql = r#"insert into  sys_user_question(questionId,discraption,userId,updateTime,choice)
     VALUES (?,?,?,?,?)
     "#;
                 let insert_res = sqlx::query::<MySql>(sql)
-                    .bind(user.0.question_id)
+                    .bind(user.0.questionId)
                     .bind(user.0.discraption)
-                    .bind(user.0.user_id)
-                    .bind(user.0.update_time)
+                    .bind(user.0.userId)
+                    .bind(user.0.updateTime)
                     .bind(user.0.choice)
                     .execute(&pool.pool)
                     .await;

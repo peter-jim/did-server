@@ -47,8 +47,8 @@ struct DIDResponse {
     identity: Option<String>,
     gender: Option<u32>, // 0 代表女 ，1代表男，2代表全部
     nickname: Option<String>,
-    head_sculpture: Option<String>,
-    update_time: Option<DateTime<Utc>>,
+    headSculpture: Option<String>,
+    updateTime: Option<DateTime<Utc>>,
     address: Option<String>,
     publickey: Option<String>,
 }
@@ -156,8 +156,8 @@ async fn didrecommand(name: web::Json<Usermark>, pool: web::Data<AppState>) -> i
                     identity: s.identity,
                     gender: s.gender, // 0 代表女 ，1代表男，2代表全部
                     nickname: s.nickname,
-                    head_sculpture: s.head_sculpture,
-                    update_time: s.update_time,
+                    headSculpture: s.head_sculpture,
+                    updateTime: s.update_time,
                     address: s.address,
                     publickey: s.publickey,
                 };
@@ -177,7 +177,7 @@ async fn didrecommand(name: web::Json<Usermark>, pool: web::Data<AppState>) -> i
 
             let body = serde_json::to_string(&did_res).unwrap();
             // return ;
-            HttpResponse::Ok().body(body)
+            HttpResponse::Ok().content_type("application/json").body(body)
         }
         Err(res) => HttpResponse::InternalServerError().body("error"),
     }

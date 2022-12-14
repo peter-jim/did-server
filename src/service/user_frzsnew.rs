@@ -9,7 +9,7 @@ use crate::AppState;
 
 #[derive(Debug,Clone,Serialize, Deserialize,FromRow)]
 struct Usermark{
-    userid:String ,   //要查询的微信号id
+    userId:String ,   //要查询的微信号id
 }
 
 #[derive(Debug,Clone,Serialize, Deserialize,FromRow)]
@@ -24,9 +24,9 @@ struct UserProcessmark{
 struct NewsResponse{
     id:i32,
     friendsid:i32,
-    create_time:DateTime<Utc>,
+    createTime:DateTime<Utc>,
     content:String,
-    head_sculpture:String
+    headSculpture:String
 }
 
 #[get("/user/frzsnews")]
@@ -35,7 +35,7 @@ async fn user_frzsnews( user: web::Json<Usermark>, pool: web::Data<AppState>) ->
     println!("接收到信息");
 
     //state = 0 未处理， 1 通过，2拒绝。
-    let sql = format!("select id, friendsid,create_time,content,head_sculpture from sys_user_friends where userid = {:?} and state = 0 ",user.0.userid.parse::<i32>().unwrap());
+    let sql = format!("select id, friendsid,createTime,content,headSculpture from sys_user_friends where userid = {:?} and state = 0 ",user.0.userId.parse::<i32>().unwrap());
     println!("{:?}",sql.clone());
     let res = sqlx::query_as::< _,NewsResponse>(&sql).fetch_all(&pool.pool).await;
     
@@ -47,7 +47,7 @@ async fn user_frzsnews( user: web::Json<Usermark>, pool: web::Data<AppState>) ->
    
             // return ;
 
-            HttpResponse::Ok().body(body)
+            HttpResponse::Ok().content_type("application/json").body(body)
             
         }
         Err(err) => {
@@ -84,7 +84,7 @@ async fn user_profrzsnews( user: web::Json<UserProcessmark>, pool: web::Data<App
         .await;
     match insert_res {
         Ok(res) => {
-            HttpResponse::Ok().body("success")
+            HttpResponse::Ok().content_type("application/json") .body("success")
             
         }
         Err(err) => {

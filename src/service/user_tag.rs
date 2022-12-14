@@ -24,7 +24,7 @@ async fn user_tag(pool: web::Data<AppState>) -> impl Responder {
     match res {
         Ok(res) =>{
             let body = serde_json::to_string(&res).unwrap();
-            HttpResponse::Ok().body(body)
+            HttpResponse::Ok().content_type("application/json") .body(body)
         }
         Err(res) =>{
             HttpResponse::InternalServerError().body("error")
