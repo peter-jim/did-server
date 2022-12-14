@@ -79,7 +79,7 @@ async fn user_info( user: web::Json<Wechatmark>, pool: web::Data<AppState>) -> i
             };
             let body = serde_json::to_string(&user_res).unwrap();
             // return ;
-            HttpResponse::Ok().body(body)
+            HttpResponse::Ok().content_type("application/json").body(body)
         }
         Err(res) =>{
             HttpResponse::InternalServerError().body("error")
