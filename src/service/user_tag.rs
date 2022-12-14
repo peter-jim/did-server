@@ -14,6 +14,14 @@ struct TagResponse{
     tag:String,
 }
 
+#[derive(Debug,Clone,Serialize, Deserialize,FromRow)]
+struct DataTagResponse{
+    data:Vec<TagResponse> 
+}
+
+
+
+
 #[get("/user/tag")]
 async fn user_tag(pool: web::Data<AppState>) -> impl Responder {
     // format!("Hello {}!", name)
@@ -23,7 +31,10 @@ async fn user_tag(pool: web::Data<AppState>) -> impl Responder {
     
     match res {
         Ok(res) =>{
-            let body = serde_json::to_string(&res).unwrap();
+            let tag = DataTagResponse{
+                data:res
+            };
+            let body = serde_json::to_string(&tag).unwrap();
             HttpResponse::Ok().content_type("application/json") .body(body)
         }
         Err(res) =>{
