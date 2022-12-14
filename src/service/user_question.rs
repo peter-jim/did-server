@@ -31,6 +31,14 @@ struct QuestionNum {
 }
 
 
+#[derive(Debug, Clone, Serialize, Deserialize, FromRow)]
+struct DataResponse {
+    questionId: i32,
+    discraption: String,
+    choice: String,
+}
+
+
 
 
 #[get("/user/getquestion")]
@@ -43,12 +51,13 @@ async fn get_question(pool: web::Data<AppState>) -> impl Responder {
         .await;
 
 
+    
 
 
 
     let body = serde_json::to_string(&res.unwrap()).unwrap();
     // return ;
-    HttpResponse::Ok().body(body)
+    HttpResponse::Ok().body("[ { \"questionId\":\"1\", \"discraption\": \"你希望如何使用这款DAPP\", \"choice\": [ { \"value\":\"A\", \"label\": \"发现开发者\" }, { \"value\":\"B\", \"label\": \"发现开发者\" }, { \"value\":\"C\", \"label\": \"发现开发者\" }, { \"value\":\"D\", \"label\": \"发现开发者\" } ] }, { \"questionId\":\"2\", \"discraption\": \"你希望如何使用这款DAPP\", \"choice\": [ { \"value\":\"A\", \"label\": \"发现开发者\" }, { \"value\":\"B\", \"label\": \"发现开发者\" }, { \"value\":\"C\", \"label\": \"发现开发者\" }, { \"value\":\"D\", \"label\": \"发现开发者\" } ] } ]")
 }
 
 #[post("/user/postquestion")]
