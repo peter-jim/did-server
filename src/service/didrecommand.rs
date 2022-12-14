@@ -1,5 +1,7 @@
 use actix_web::web::Json;
-use actix_web::{error, HttpResponse, HttpResponseBuilder, HttpServer, App, web, Responder, get, post};
+use actix_web::{
+    error, get, post, web, App, HttpResponse, HttpResponseBuilder, HttpServer, Responder,
+};
 
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
@@ -7,67 +9,72 @@ use sqlx::mysql::{MySqlPoolOptions, MySqlRow};
 use sqlx::{FromRow, MySql, Pool};
 
 use crate::AppState;
-#[derive(Debug,Clone,Serialize, Deserialize)]
-struct Usermark{
-    page:String,
-    size:String,
-    id:String,
+#[derive(Debug, Clone, Serialize, Deserialize)]
+struct Usermark {
+    page: String,
+    size: String,
+    id: String,
     // location:String ,   //实现下拉位置
     // email:String,
     // age:(String,String),   //年龄
     // identity:String,   //身份，buider
-    gender:Option<String>,   // 0 代表女 ，1代表男，2代表全部
+    gender: Option<String>, // 0 代表女 ，1代表男，2代表全部
 }
 
-
-#[derive(Debug,Clone,Serialize, Deserialize,FromRow)]
-struct DIDsql{
-    id:u32,
-    city:Option<String> ,   //实现下拉位置
+#[derive(Debug, Clone, Serialize, Deserialize, FromRow)]
+struct DIDsql {
+    id: u32,
+    city: Option<String>, //实现下拉位置
     // email:String,
     // age:Vec<i32>,   //年龄
     // tag:(String,String,String),
-    identity:Option<String>,
-    gender:Option<u32>,   // 0 代表女 ，1代表男，2代表全部
-    nickname:Option<String>,
-    head_sculpture:Option<String>,
-    update_time:Option<DateTime<Utc>>,
-    address:Option<String>,
-    publickey:Option<String>
+    identity: Option<String>,
+    gender: Option<u32>, // 0 代表女 ，1代表男，2代表全部
+    nickname: Option<String>,
+    head_sculpture: Option<String>,
+    update_time: Option<DateTime<Utc>>,
+    address: Option<String>,
+    publickey: Option<String>,
 }
 
-
-#[derive(Debug,Clone,Serialize, Deserialize,FromRow)]
-struct DIDResponse{
-    id:u32,
-    city:Option<String> ,   //实现下拉位置
+#[derive(Debug, Clone, Serialize, Deserialize, FromRow)]
+struct DIDResponse {
+    id: u32,
+    city: Option<String>, //实现下拉位置
     // email:String,
     // age:Vec<i32>,   //年龄
-    tag:(String,String,String),
-    identity:Option<String>,
-    gender:Option<u32>,   // 0 代表女 ，1代表男，2代表全部
-    nickname:Option<String>,
-    head_sculpture:Option<String>,
-    update_time:Option<DateTime<Utc>>,
-    address:Option<String>,
-    publickey:Option<String>
+    tag: (String, String, String),
+    identity: Option<String>,
+    gender: Option<u32>, // 0 代表女 ，1代表男，2代表全部
+    nickname: Option<String>,
+    head_sculpture: Option<String>,
+    update_time: Option<DateTime<Utc>>,
+    address: Option<String>,
+    publickey: Option<String>,
+}
+#[derive(Debug, Clone, Serialize, Deserialize, FromRow)]
+struct DIDPageElement {
+    records: Vec<DIDResponse>,
+    totalElements: u32,
+    currentPage: u32,
+    pageSize: u32,
+    totalPages: u32,
+    numberOfElements: u32,
 }
 
-
 #[post("/did")]
-async fn didrecommand(name: web::Json<Usermark>,pool: web::Data<AppState>) -> impl Responder {
+async fn didrecommand(name: web::Json<Usermark>, pool: web::Data<AppState>) -> impl Responder {
     // format!("Hello {}!", name)
     println!("接收到信息");
-    //step 0 . 判断参数是否为整数 “ ” 。合法性判断，避免sql注入攻击 
+    //step 0 . 判断参数是否为整数 “ ” 。合法性判断，避免sql注入攻击
 
+    let mut sql:String = String::from(" select id,city,identity,gender,nickname,head_sculpture,update_time,address,publickey from sys_user_info") ;
 
-    let mut sql:String = String::from(" select id,city,identity,gender,nickname,head_sculpture,update_time,address,publickey from sys_user_info  ") ;
-    
     // match name.gender {
 
     //     0i32 =>{
     //         sql =sql +&"gender = 0".to_string()
-            
+
     //         // println!("gender")
     //     }
 
@@ -84,90 +91,97 @@ async fn didrecommand(name: web::Json<Usermark>,pool: web::Data<AppState>) -> im
     //     }
     // };
 
-    
-        // match name.identity {
-            
-        //     0i32 =>{
-        //         sql = sql +  &" and identity = 0".to_string()
-        //     }
+    // match name.identity {
 
-        //     1i32 =>{
-        //         sql = sql + &" and identity = 2".to_string()
-        //     }
+    //     0i32 =>{
+    //         sql = sql +  &" and identity = 0".to_string()
+    //     }
 
-        //     2i32 =>{
-        //         sql = sql +  &" and identity = 3".to_string()
-        //     }
+    //     1i32 =>{
+    //         sql = sql + &" and identity = 2".to_string()
+    //     }
 
-        //     4i32 =>{
-        //         sql = sql +  &" and identity = 4".to_string()
-        //     }
-        //     999i32 =>{
-        //         // sql = sql +  &" and identity = 0".to_string()
-        //         println!("{:?}",sql);
-        //     }
+    //     2i32 =>{
+    //         sql = sql +  &" and identity = 3".to_string()
+    //     }
 
-        //     _ =>{
-        //         todo!()
-        //     }
-        // }
-        
-        // sql =  sql + &" limit ".to_string() + &name.location.to_string()+ " , " + &(name.location + 10).to_string();
+    //     4i32 =>{
+    //         sql = sql +  &" and identity = 4".to_string()
+    //     }
+    //     999i32 =>{
+    //         // sql = sql +  &" and identity = 0".to_string()
+    //         println!("{:?}",sql);
+    //     }
 
-        
-        println!("{:?}",&sql);
-        
+    //     _ =>{
+    //         todo!()
+    //     }
+    // }
 
-    let res = sqlx::query_as::< MySql,DIDsql>(&sql).fetch_all(&pool.pool).await;
+    let page = name.0.page.parse::<u32>().unwrap();
+    let size = name.0.size.parse::<u32>().unwrap();
+
+    sql =  sql + &" limit ".to_string() + & (page*size).to_string()+ " , " + &((page*size) + size).to_string();
+
+    println!("{:?}", &sql);
+
+    let res = sqlx::query_as::<MySql, DIDsql>(&sql)
+        .fetch_all(&pool.pool)
+        .await;
 
     match res {
-        Ok(res) =>{
-
+        Ok(res) => {
             let mut vec = Vec::new();
             vec.push("CEO".to_string());
             vec.push("Builder".to_string());
             vec.push("Builder".to_string());
-            let  user_info = res.clone();
-            let mut user_vec:Vec<DIDResponse> = Vec::new();
+            let user_info = res.clone();
+            let mut user_vec: Vec<DIDResponse> = Vec::new();
+            let mut total_element = 0u32;
 
-         
-
-            for i in 0..res.len()
-            {
+            for i in 0..res.len() {
                 let s = res[i].clone();
 
-                let did = DIDResponse{
-                    id:s.id,
+                let did = DIDResponse {
+                    id: s.id,
 
-                    city:s.city,   //实现下拉位置
+                    city: s.city, //实现下拉位置
                     // email:String,
                     // age:Vec<i32>,   //年龄
-                    tag:("Builder".to_string(),"Builder".to_string(),"Builder".to_string()),
-                    identity:s.identity,
-                    gender:s.gender,   // 0 代表女 ，1代表男，2代表全部
-                    nickname:s.nickname,
-                    head_sculpture:s.head_sculpture,
-                    update_time:s.update_time,
-                    address:s.address,
-                    publickey:s.publickey
+                    tag: (
+                        "Builder".to_string(),
+                        "Builder".to_string(),
+                        "Builder".to_string(),
+                    ),
+                    identity: s.identity,
+                    gender: s.gender, // 0 代表女 ，1代表男，2代表全部
+                    nickname: s.nickname,
+                    head_sculpture: s.head_sculpture,
+                    update_time: s.update_time,
+                    address: s.address,
+                    publickey: s.publickey,
                 };
-                user_vec.push(did.clone());  
+                user_vec.push(did.clone());
+
+                total_element=total_element+1;
             }
 
+            let did_res = DIDPageElement {
+                records: user_vec,
+                totalElements: total_element,
+                currentPage: name.0.page.parse::<u32>().unwrap(),
+                pageSize: name.0.size.parse::<u32>().unwrap(),
+                totalPages: 0,
+                numberOfElements: 0,
+            };
 
-         
-
-            let body = serde_json::to_string(&user_vec).unwrap();
+            let body = serde_json::to_string(&did_res).unwrap();
             // return ;
             HttpResponse::Ok().body(body)
         }
-        Err(res) =>{
-            HttpResponse::InternalServerError().body("error")
-        }
+        Err(res) => HttpResponse::InternalServerError().body("error"),
     }
 }
-
-
 
 // impl DIDsql {
 //     pub fn to_response(&self) -> DIDResponse {
