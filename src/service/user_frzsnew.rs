@@ -21,15 +21,27 @@ struct UserProcessmark{
 
 
 #[derive(Debug,Clone,Serialize, Deserialize,FromRow)]
+struct NewsSQL{
+    id:i32,
+    friendsid:i32,
+    createTime:DateTime<Utc>,
+    content:String,
+    headSculpture:String,
+    // tag: Vec<String>
+
+}
+#[derive(Debug,Clone,Serialize, Deserialize,FromRow)]
 struct NewsResponse{
     id:i32,
     friendsid:i32,
     createTime:DateTime<Utc>,
     content:String,
-    headSculpture:String
+    headSculpture:String,
+    tag: Vec<String>
 }
 
-#[get("/user/frzsnews")]
+
+#[post("/user/frzsnews")]
 async fn user_frzsnews( user: web::Json<Usermark>, pool: web::Data<AppState>) -> impl Responder {
     // format!("Hello {}!", name)
     println!("接收到信息");
@@ -37,16 +49,39 @@ async fn user_frzsnews( user: web::Json<Usermark>, pool: web::Data<AppState>) ->
     //state = 0 未处理， 1 通过，2拒绝。
     let sql = format!("select id, friendsid,createTime,content,headSculpture from sys_user_friends where userid = {:?} and state = 0 ",user.0.userId.parse::<i32>().unwrap());
     println!("{:?}",sql.clone());
-    let res = sqlx::query_as::< _,NewsResponse>(&sql).fetch_all(&pool.pool).await;
+    let res = sqlx::query_as::< _,NewsSQL>(&sql).fetch_all(&pool.pool).await;
     
 
 
     match res {
         Ok(res) => {
-            let body = serde_json::to_string(&res).unwrap();
-   
-            // return ;
+            
+            let mut vec = Vec::new();
+            vec.push("CEO".to_string());
+            vec.push("Builder".to_string());
+            vec.push("Builder".to_string());
 
+            let user_info = res.clone();
+            let mut user_vec: Vec<NewsResponse> = Vec::new();
+
+            for i in 0..res.len(){
+                let s = res[i].clone();
+
+                let news = NewsResponse{
+                    id:s.id,
+                    friendsid:s.friendsid,
+                    createTime:s.createTime,
+                    content:s.content,
+                    headSculpture:s.headSculpture,
+                    tag: vec.clone()
+                };
+
+                user_vec.push(news);
+
+            }
+            
+
+            let body = serde_json::to_string(&user_vec).unwrap();
             HttpResponse::Ok().content_type("application/json").body(body)
             
         }
