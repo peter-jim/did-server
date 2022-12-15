@@ -14,9 +14,9 @@ struct Usermark{
 
 #[derive(Debug,Clone,Serialize, Deserialize,FromRow)]
 struct UserProcessmark{
-    id:String ,   //id
-    frizesid:String ,   //要查询的微信号id
-    result:String,
+    id:i32 ,   //id
+    friendsid :i32 ,   //要查询的微信号id
+    result:i32,
 }
 
 
@@ -104,11 +104,11 @@ async fn user_profrzsnews( user: web::Json<UserProcessmark>, pool: web::Data<App
     let state = user.result.clone();
     
     let mut sql: String = "".to_string();
-    if state == "1" {
+    if state == 1 {
         sql = "update sys_user_friends set state = 1 where id = ?".to_string();
     }
     
-    if state == "2" {
+    if state == 2 {
         sql = "update sys_user_friends set state = 2 where id = ?".to_string();
     }else{
         HttpResponse::InternalServerError().body("error");
