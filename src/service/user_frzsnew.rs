@@ -23,6 +23,7 @@ struct UserProcessmark{
 #[derive(Debug,Clone,Serialize, Deserialize,FromRow)]
 struct NewsSQL{
     id:i32,
+    nickname:String,
     friendsid:i32,
     createTime:DateTime<Utc>,
     content:String,
@@ -33,6 +34,7 @@ struct NewsSQL{
 #[derive(Debug,Clone,Serialize, Deserialize,FromRow)]
 struct NewsResponse{
     id:i32,
+    nickname:String,
     friendsid:i32,
     createTime:DateTime<Utc>,
     content:String,
@@ -47,7 +49,7 @@ async fn user_frzsnews( user: web::Json<Usermark>, pool: web::Data<AppState>) ->
     println!("接收到信息");
 
     //state = 0 未处理， 1 通过，2拒绝。
-    let sql = format!("select id, friendsid,createTime,content,headSculpture from sys_user_friends where userid = {:?} and state = 0 ",user.0.userId.parse::<i32>().unwrap());
+    let sql = format!("select id,nickname, friendsid,createTime,content,headSculpture from sys_user_friends where userid = {:?} and state = 0 ",user.0.userId.parse::<i32>().unwrap());
     println!("{:?}",sql.clone());
     let res = sqlx::query_as::< _,NewsSQL>(&sql).fetch_all(&pool.pool).await;
     
@@ -69,6 +71,7 @@ async fn user_frzsnews( user: web::Json<Usermark>, pool: web::Data<AppState>) ->
 
                 let news = NewsResponse{
                     id:s.id,
+                    nickname:s.nickname,
                     friendsid:s.friendsid,
                     createTime:s.createTime,
                     content:s.content,
