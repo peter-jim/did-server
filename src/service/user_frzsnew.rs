@@ -9,7 +9,7 @@ use crate::AppState;
 
 #[derive(Debug,Clone,Serialize, Deserialize,FromRow)]
 struct Usermark{
-    userId:String ,   //要查询的微信号id
+    userId:i32 ,   //要查询的微信号id
 }
 
 #[derive(Debug,Clone,Serialize, Deserialize,FromRow)]
@@ -49,7 +49,7 @@ async fn user_frzsnews( user: web::Json<Usermark>, pool: web::Data<AppState>) ->
     println!("接收到信息");
 
     //state = 0 未处理， 1 通过，2拒绝。
-    let sql = format!("select id,nickname, friendsid,createTime,content,headSculpture from sys_user_friends where userid = {:?} and state = 0 ",user.0.userId.parse::<i32>().unwrap());
+    let sql = format!("select id,nickname, friendsid,createTime,content,headSculpture from sys_user_friends where userId = {:?} and state = 0 ",user.0.userId);
     println!("{:?}",sql.clone());
     let res = sqlx::query_as::< _,NewsSQL>(&sql).fetch_all(&pool.pool).await;
     

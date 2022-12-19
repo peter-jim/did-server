@@ -22,7 +22,7 @@ async fn agreement(pool: web::Data<AppState>) -> impl Responder {
     
     match res {
         Ok(res) =>{
-            let body = serde_json::to_string(&res).unwrap();
+            let body = serde_json::to_string(&res.useragreement).unwrap();
    
             // return ;
             HttpResponse::Ok().body(body)

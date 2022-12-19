@@ -22,7 +22,7 @@ async fn privacy_policy(pool: web::Data<AppState>) -> impl Responder {
     
     match res {
         Ok(res) =>{
-            let body = serde_json::to_string(&res).unwrap();
+            let body = serde_json::to_string(&res.privacypolicy).unwrap();
    
             // return ;
 

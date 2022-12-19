@@ -29,7 +29,7 @@ async fn about_us(pool: web::Data<AppState>) -> impl Responder {
 
     match res {
         Ok(res) =>{
-            let body = serde_json::to_string(&res).unwrap();
+            let body = serde_json::to_string(&res.aboutus).unwrap();
    
             // return ;
             HttpResponse::Ok().body(body)
