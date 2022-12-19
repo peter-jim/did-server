@@ -38,8 +38,7 @@ struct UserInfoResponse{
     city:String,
     address:String,
     wishtag:Vec<String>,
-    tag1:String,
-    tag2:String,
+    tag:Vec<String>,
     introduce:String
 }
 
@@ -66,9 +65,13 @@ async fn user_info( user: web::Json<Wechatmark>, pool: web::Data<AppState>) -> i
         Ok(res) =>{
 
             let mut vec = Vec::new();
+            let mut tag = Vec::new();
             vec.push("CEO".to_string());
             vec.push("Builder".to_string());
             let user_info = res;
+
+            tag.push(user_info.clone().tag1);
+            tag.push(user_info.clone().tag2);
         
             let user_res = UserInfoResponse{
                 nickname:user_info.clone().nickname.unwrap(), //要查询的微信号id
@@ -78,8 +81,7 @@ async fn user_info( user: web::Json<Wechatmark>, pool: web::Data<AppState>) -> i
                 city:user_info.clone().city.unwrap(),
                 address:user_info.clone().address.unwrap(),
                 wishtag:vec,
-                tag1:user_info.clone().tag1,
-                tag2:user_info.clone().tag2,
+                tag:tag,
                 introduce:user_info.clone().introduce
             };
             let body = serde_json::to_string(&user_res).unwrap();
