@@ -16,6 +16,13 @@ struct Wechatmark{
 
 
 #[derive(Debug,Clone,Serialize, Deserialize,FromRow)]
+struct DelMomentmark{
+    userId:String ,   //要查询的微信号id
+    momentId:String ,   //要查询的微信号id
+}
+
+
+#[derive(Debug,Clone,Serialize, Deserialize,FromRow)]
 struct WechatResponse{
     wechat:String    //要查询的微信号id
 }
@@ -57,5 +64,31 @@ async fn user_moment( user: web::Json<Wechatmark>, pool: web::Data<AppState>) ->
             HttpResponse::InternalServerError().body("error")
         }
     }
-    
 }
+
+
+//返回用户的帖子列表a
+#[post("/user/delectmoment")]
+async fn del_moment( user: web::Json<DelMomentmark>, pool: web::Data<AppState>) -> impl Responder {
+    // format!("Hello {}!", name)
+    println!("接收到信息");
+
+    let sql = format!("delect from sys_moment where user_id = {:?} and id = {:?}  ",user.0.userId,user.0.momentId);
+    println!("{:?}",sql.clone());
+    // let res = sqlx::query_as::< _,UserInfoResponse>(&sql).fetch_one(&pool.pool).await;
+    let res = sqlx::query_as::< _,UserMomentResponse>(&sql).fetch_all(&pool.pool).await;
+    
+     
+    match res {
+        Ok(res) =>{
+            let body = serde_json::to_string(&res).unwrap();
+   
+            // return ;
+            HttpResponse::Ok().body(body)
+        }
+        Err(res) =>{
+            HttpResponse::InternalServerError().body("error")
+        }
+    }
+}
+

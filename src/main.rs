@@ -3,7 +3,7 @@
 use std::fs::File;
 
 use actix_web::{get, web, App, HttpServer, Responder};
-use did_server::{AppState, user_moment::user_moment, user_info::user_info, user_wechat::user_wechat, order_did::order_did, privacy_policy::privacy_policy, agreement::agreement,didrecommand::didrecommand,user_comment::user_comment, aboutus::about_us, user_question::{get_question, post_question, check_question, gap_question, post_gapquestion}, user_frzs::add_friend, publish_check::publish_check, user_frzsnew::{user_frzsnews, user_profrzsnews, user_notification}, user_tag::user_tag, user_report::user_report
+use did_server::{AppState, user_moment::user_moment, user_info::{user_info, user_profile, change_visible}, user_wechat::user_wechat, order_did::order_did, privacy_policy::privacy_policy, agreement::agreement,didrecommand::didrecommand,user_comment::user_comment, aboutus::about_us, user_question::{get_question, post_question, check_question, gap_question, post_gapquestion}, user_frzs::{add_friend, user_friendslist}, publish_check::publish_check, user_frzsnew::{user_frzsnews, user_profrzsnews, user_notification}, user_tag::user_tag, user_report::user_report
 };
 use sqlx::{mysql::MySqlPoolOptions, Pool, MySql};
 
@@ -57,6 +57,9 @@ async fn main() -> std::io::Result<()> {
         .service(post_gapquestion)
         .service(user_notification)
         .service(user_report)
+        .service(user_friendslist)
+        .service(user_profile)
+        .service(change_visible)
         
     })
     .bind(("0.0.0.0", 8080))?

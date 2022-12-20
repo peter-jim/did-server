@@ -9,6 +9,23 @@ use sqlx::{FromRow, MySql, Pool};
 
 use crate::AppState;
 
+
+#[derive(Debug,Clone,Serialize, Deserialize,FromRow)]
+struct Usermark{
+    id:i32 ,   //要查询的微信号id
+    page:i32,
+    size:i32,
+}
+
+#[derive(Debug,Clone,Serialize, Deserialize,FromRow)]
+struct FriendslistResponse{
+    id:u32 ,   //要查询的微信号id
+    identity:String,
+    nickname:String,
+    headSculpture:String
+}
+
+
 #[derive(Debug, Clone, Serialize, Deserialize, FromRow)]
 struct AddFriendMark {
     userid: i32, //发送的微信号用户id
@@ -78,7 +95,25 @@ async fn add_friend(user: web::Json<AddFriendMark>, pool: web::Data<AppState>) -
 }
 
 
+#[post("/user/friendslist")]
+async fn user_friendslist( user: web::Json<Usermark>, pool: web::Data<AppState>) -> impl Responder {
+    // format!("Hello {}!", name)
+    println!("接收到信息");
 
+    let sql = format!("select userinfo.id as id, userinfo.identity as identity, userinfo.nickname as nickname,userinfo.head_sculpture as headSculpture   from sys_user_info userinfo , sys_user_friends friends where friends.userId = {:?}",user.0.id);
+    println!("{:?}",sql.clone());
+    let res = sqlx::query_as::< _,FriendslistResponse>(&sql).fetch_one(&pool.pool).await;
+    
+    // res[]
+
+    // for i in res{
+    //     println!("{:?}",i."row");
+    // }
+    // format!("{:?}", serde_json::to_value(&res.unwrap())  )
+    let body = serde_json::to_string(&res.unwrap()).unwrap();
+    // return ;
+    HttpResponse::Ok().body(body)
+}
 
 
 fn get_local_time() -> String{
