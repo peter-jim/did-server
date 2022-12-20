@@ -44,6 +44,23 @@ struct DataResponse {
 
 
 
+#[get("/user/checkquestion")]
+async fn check_question(pool: web::Data<AppState>) -> impl Responder {
+    // format!("Hello {}!", name)
+    println!("接收到信息");
+    let sql = "select questionId,discraption,choice from sys_question ".to_string();
+    let res = sqlx::query_as::<MySql, QuestionResponse>(&sql)
+        .fetch_all(&pool.pool)
+        .await;
+
+     // format!("{:?}", serde_json::to_value(&res.unwrap())  )
+     let check = false;
+     let body = serde_json::to_string(&check).unwrap();
+     HttpResponse::Ok().body(body)
+}
+
+
+
 
 #[get("/user/getquestion")]
 async fn get_question(pool: web::Data<AppState>) -> impl Responder {
@@ -58,7 +75,30 @@ async fn get_question(pool: web::Data<AppState>) -> impl Responder {
     HttpResponse::Ok().content_type("application/json").body("[ { \"questionId\": \"1\", \"description\": \"你希望如何使用这款DAPP\", \"choice\": [ { \"value\": \"A\", \"label\": \"发现开发者\" }, { \"value\": \"B\", \"label\": \"发现好项目\" }, { \"value\": \"C\", \"label\": \"遇见Web3好友\" }, { \"value\": \"D\", \"label\": \"寻找投资人\" } ] }, { \"questionId\": \"2\", \"description  \": \"下面哪个身份适合你\", \"choice\": [ { \"value\": \"A\", \"label\": \"开发者\" }, { \"value\": \"B\", \"label\": \"加密爱好者\" }, { \"value\": \"C\", \"label\": \"学生\" }, { \"value\": \"D\", \"label\": \"社区运营\" } ] }, { \"questionId\": \"3\", \"description\": \"下面哪个公链生态您最感兴趣\", \"choice\": [ { \"value\": \"A\", \"label\": \"Polkadot\" }, { \"value\": \"B\", \"label\": \"Moonbeam\" }, { \"value\": \"C\", \"label\": \"MoonRiver\" }, { \"value\": \"D\", \"label\": \"Ethereum\" } ] } ]")
 
 }
-    #[post("/user/postquestion")]
+
+#[get("/user/gapquestion")]
+async fn gap_question(pool: web::Data<AppState>) -> impl Responder {
+    // format!("Hello {}!", name)
+    println!("接收到信息");
+    let sql = "select questionId,discraption,choice from sys_question ".to_string();
+    let res = sqlx::query_as::<MySql, QuestionResponse>(&sql)
+        .fetch_all(&pool.pool)
+        .await;
+    let body = serde_json::to_string(&res.unwrap()).unwrap();
+    // return ;
+    HttpResponse::Ok().content_type("application/json").body("[ { \"questionId\": \"1\", \"description  \": \"请输入您的昵称\", }, { \"questionId\": \"2\", \"description  \": \"请输入您的微信号\", }, { \"questionId\": \"3\", \"description  \": \"【我是谁】Vitalk 【基本情况】（可以介绍自己背景、在哪、做什么） 【交友需求】项目简介与进展、需要什么技能的队友；个人请说明想加入什么样的战队） 【你擅长的技能】（方便寻找合适的伙伴\", } ]")
+}
+
+#[post("/user/postgapquestion")]
+async fn post_gapquestion(pool: web::Data<AppState>) -> impl Responder {
+    // format!("Hello {}!", name)
+   
+    HttpResponse::Ok().body("success")
+
+}
+
+
+#[post("/user/postquestion")]
 async fn post_question(user: web::Json<Questionmark>, pool: web::Data<AppState>) -> impl Responder {
     println!("接收到信息");
 

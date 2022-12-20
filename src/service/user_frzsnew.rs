@@ -43,6 +43,20 @@ struct NewsResponse{
 }
 
 
+#[post("/user/notification")]
+async fn user_notification( user: web::Json<Usermark>, pool: web::Data<AppState>) -> impl Responder {
+    // format!("Hello {}!", name)
+    println!("接收到信息");
+
+    let sql = format!("select wechat from sys_user_info where id = {:?} ",user.0.userId);
+    println!("{:?}",sql.clone());
+    let check = true;
+    let body = serde_json::to_string(&check).unwrap();
+    // return ;
+    HttpResponse::Ok().body(body)
+}
+
+
 #[post("/user/frzsnews")]
 async fn user_frzsnews( user: web::Json<Usermark>, pool: web::Data<AppState>) -> impl Responder {
     // format!("Hello {}!", name)
@@ -95,6 +109,9 @@ async fn user_frzsnews( user: web::Json<Usermark>, pool: web::Data<AppState>) ->
 
     }
 }
+
+
+
 
 #[post("/user/profrzsnews")]
 async fn user_profrzsnews( user: web::Json<UserProcessmark>, pool: web::Data<AppState>) -> impl Responder {
