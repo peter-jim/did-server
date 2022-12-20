@@ -37,6 +37,7 @@ struct UserInfoSQL{
     tag1:Option<String>,
     tag2:Option<String>,
     introduce:Option<String>,
+    did:Option<String>,
 }
 #[derive(Debug,Clone,Serialize, Deserialize)]
 struct UserInfoResponse{
@@ -48,7 +49,8 @@ struct UserInfoResponse{
     address:Option<String>,
     wishtag:Vec<String>,
     tag:Vec<String>,
-    introduce:Option<String>
+    introduce:Option<String>,
+    did:Option<String>,
 }
 
 
@@ -74,7 +76,7 @@ async fn user_info( user: web::Json<Wechatmark>, pool: web::Data<AppState>) -> i
     // format!("Hello {}!", name)
     println!("接收到信息");
 
-    let sql = format!("select  email,profession,education,gender,nickname,identity,head_sculpture,id ,city,address,tag1,tag2,introduce from sys_user_info where id = {:?} ",user.0.id);
+    let sql = format!("select  email,profession,education,gender,nickname,identity,head_sculpture,id ,city,address,tag1,tag2,introduce,did from sys_user_info where id = {:?} ",user.0.id);
     println!("{:?}",sql.clone());
     // let res = sqlx::query_as::< _,UserInfoResponse>(&sql).fetch_one(&pool.pool).await;
     let res = sqlx::query_as::< MySql,UserInfoSQL>(&sql).fetch_one(&pool.pool).await;
@@ -101,6 +103,7 @@ async fn user_info( user: web::Json<Wechatmark>, pool: web::Data<AppState>) -> i
                 wishtag:vec,
                 tag:tag,
                 introduce:user_info.clone().introduce,
+                did:user_info.clone().did,
             };
             let body = serde_json::to_string(&user_res).unwrap();
             // return ;
