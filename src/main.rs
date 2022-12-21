@@ -10,7 +10,7 @@ use sqlx::{mysql::MySqlPoolOptions, Pool, MySql};
 
 #[get("/hello/{name}")]
 async fn greet(name: web::Path<String>) -> impl Responder {
-    format!("Hello {name}!")
+    format!("Hello {name}!" )
 }
 
 
