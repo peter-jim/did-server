@@ -20,9 +20,9 @@ struct Usermark{
 #[derive(Debug,Clone,Serialize, Deserialize,FromRow)]
 struct FriendslistResponse{
     id:u32 ,   //要查询的微信号id
-    identity:String,
-    nickname:String,
-    headSculpture:String
+    identity:Option<String>,
+    nickname:Option<String>,
+    headSculpture:Option<String>
 }
 
 
