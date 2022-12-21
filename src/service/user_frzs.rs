@@ -102,7 +102,7 @@ async fn user_friendslist( user: web::Json<Usermark>, pool: web::Data<AppState>)
 
     let sql = format!("select userinfo.id as id, userinfo.identity as identity, userinfo.nickname as nickname,userinfo.head_sculpture as headSculpture   from sys_user_info userinfo , sys_user_friends friends where friends.userId = {:?}",user.0.id);
     println!("{:?}",sql.clone());
-    let res = sqlx::query_as::< _,FriendslistResponse>(&sql).fetch_one(&pool.pool).await;
+    let res = sqlx::query_as::< _,FriendslistResponse>(&sql).fetch_all(&pool.pool).await;
     
     // res[]
 
