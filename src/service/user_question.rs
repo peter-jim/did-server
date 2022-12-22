@@ -44,7 +44,7 @@ struct DataResponse {
 
 
 
-#[get("/user/checkquestion")]
+#[post("/user/checkquestion")]
 async fn check_question(pool: web::Data<AppState>) -> impl Responder {
     // format!("Hello {}!", name)
     println!("接收到信息");

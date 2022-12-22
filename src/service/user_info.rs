@@ -91,8 +91,13 @@ async fn user_info( user: web::Json<Wechatmark>, pool: web::Data<AppState>) -> i
             vec.push("Builder".to_string());
             let user_info = res;
 
-            tag.push(user_info.clone().tag1.unwrap());
-            tag.push(user_info.clone().tag2.unwrap());
+            if user_info.tag1 == None{
+
+            }else{
+                tag.push(user_info.clone().tag1.unwrap());
+                tag.push(user_info.clone().tag2.unwrap());
+            }
+
         
             let user_res = UserInfoResponse{
                 nickname:user_info.clone().nickname, //要查询的微信号id
