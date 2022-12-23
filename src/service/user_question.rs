@@ -72,7 +72,7 @@ async fn get_question(pool: web::Data<AppState>) -> impl Responder {
         .await;
     let body = serde_json::to_string(&res.unwrap()).unwrap();
     // return ;
-    HttpResponse::Ok().content_type("application/json").body("[ { \"questionId\": \"1\", \"description  \": \"你希望如何使用这款DAPP\", \"choice\": [ { \"value\": \"A\", \"label\": \"发现开发者\" }, { \"value\": \"B\", \"label\": \"发现好项目\" }, { \"value\": \"C\", \"label\": \"遇见Web3好友\" }, { \"value\": \"D\", \"label\": \"寻找投资人\" } ] }, { \"questionId\": \"2\", \"description\": \"下面哪个身份适合你\", \"choice\": [ { \"value\": \"A\", \"label\": \"开发者\" }, { \"value\": \"B\", \"label\": \"加密爱好者\" }, { \"value\": \"C\", \"label\": \"学生\" }, { \"value\": \"D\", \"label\": \"社区运营\" } ] }, { \"questionId\": \"3\", \"description\": \"下面哪个公链生态您最感兴趣\", \"choice\": [ { \"value\": \"A\", \"label\": \"Polkadot\" }, { \"value\": \"B\", \"label\": \"Moonbeam\" }, { \"value\": \"C\", \"label\": \"MoonRiver\" }, { \"value\": \"D\", \"label\": \"Ethereum\" } ] },{ \"questionId\": \"4\", \"description\": \"请输入您的昵称\", }, { \"questionId\": \"5\", \"description\": \"请输入您的微信号\", }, { \"questionId\": \"6\", \"description\": \"请做一个自我介绍 \n【我是谁】Vitalk \n【基本情况】（可以介绍自己背景、在哪、做什么） \n【交友需求】项目简介与进展、需要什么技能的队友；个人请说明想加入什么样的战队）\n 【你擅长的技能】（方便寻找合适的伙伴\n\", } ]")
+    HttpResponse::Ok().content_type("application/json").body("[ { \"questionId\": \"1\", \"description\": \"你希望如何使用这款DAPP\", \"choice\": [ { \"value\": \"A\", \"label\": \"发现开发者\" }, { \"value\": \"B\", \"label\": \"发现好项目\" }, { \"value\": \"C\", \"label\": \"遇见Web3好友\" }, { \"value\": \"D\", \"label\": \"寻找投资人\" } ] }, { \"questionId\": \"2\", \"description\": \"下面哪个身份适合你\", \"choice\": [ { \"value\": \"A\", \"label\": \"开发者\" }, { \"value\": \"B\", \"label\": \"加密爱好者\" }, { \"value\": \"C\", \"label\": \"学生\" }, { \"value\": \"D\", \"label\": \"社区运营\" } ] }, { \"questionId\": \"3\", \"description\": \"下面哪个公链生态您最感兴趣\", \"choice\": [ { \"value\": \"A\", \"label\": \"Polkadot\" }, { \"value\": \"B\", \"label\": \"Moonbeam\" }, { \"value\": \"C\", \"label\": \"MoonRiver\" }, { \"value\": \"D\", \"label\": \"Ethereum\" } ] },{ \"questionId\": \"4\", \"description\": \"请输入您的昵称\", }, { \"questionId\": \"5\", \"description\": \"请输入您的微信号\", }, { \"questionId\": \"6\", \"description\": \"请做一个自我介绍 \n【我是谁】Vitalk \n【基本情况】（可以介绍自己背景、在哪、做什么） \n【交友需求】项目简介与进展、需要什么技能的队友；个人请说明想加入什么样的战队）\n 【你擅长的技能】（方便寻找合适的伙伴\n\", } ]")
 }
 
 #[get("/user/gapquestion")]
@@ -85,7 +85,7 @@ async fn gap_question(pool: web::Data<AppState>) -> impl Responder {
         .await;
     let body = serde_json::to_string(&res.unwrap()).unwrap();
     // return ;
-    HttpResponse::Ok().content_type("application/json").body("[ { \"questionId\": \"1\", \"description  \": \"请输入您的昵称\", }, { \"questionId\": \"2\", \"description  \": \"请输入您的微信号\", }, { \"questionId\": \"3\", \"description  \": \"【我是谁】Vitalk 【基本情况】（可以介绍自己背景、在哪、做什么） 【交友需求】项目简介与进展、需要什么技能的队友；个人请说明想加入什么样的战队） 【你擅长的技能】（方便寻找合适的伙伴\", } ]")
+    HttpResponse::Ok().content_type("application/json").body("[ { \"questionId\": \"1\", \"description\": \"请输入您的昵称\", }, { \"questionId\": \"2\", \"description\": \"请输入您的微信号\", }, { \"questionId\": \"3\", \"description\": \"【我是谁】Vitalk 【基本情况】（可以介绍自己背景、在哪、做什么） 【交友需求】项目简介与进展、需要什么技能的队友；个人请说明想加入什么样的战队） 【你擅长的技能】（方便寻找合适的伙伴\", } ]")
 }
 
 #[post("/user/postgapquestion")]
