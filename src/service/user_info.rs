@@ -142,8 +142,12 @@ async fn user_profile( user: web::Json<Wechatmark>, pool: web::Data<AppState>) -
             vec.push("Builder".to_string());
             let user_profile= res;
 
-            tag.push(user_profile.clone().tag1.unwrap());
-            tag.push(user_profile.clone().tag2.unwrap());
+            if user_profile.tag1 == None{
+
+            }else{
+                tag.push(user_profile.clone().tag1.unwrap());
+                tag.push(user_profile.clone().tag2.unwrap());
+            }
         
             let user_res = UserProfileResponse{
                 email:user_profile.clone().email,
