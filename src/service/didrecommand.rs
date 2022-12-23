@@ -35,6 +35,9 @@ struct DIDsql {
     update_time: Option<DateTime<Utc>>,
     address: Option<String>,
     publickey: Option<String>,
+    tag1:Option<String>,
+    tag2:Option<String>,
+
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, FromRow)]
@@ -43,7 +46,7 @@ struct DIDResponse {
     city: Option<String>, //实现下拉位置
     // email:String,
     // age:Vec<i32>,   //年龄
-    tag: (String, String, String),
+    tag: (Option<String>, Option<String>, String),
     identity: Option<String>,
     gender: Option<u32>, // 0 代表女 ，1代表男，2代表全部
     nickname: Option<String>,
@@ -68,7 +71,7 @@ async fn didrecommand(name: web::Json<Usermark>, pool: web::Data<AppState>) -> i
     println!("接收到信息");
     //step 0 . 判断参数是否为整数 “ ” 。合法性判断，避免sql注入攻击
 
-    let mut sql:String = String::from(" select id,city,identity,gender,nickname,head_sculpture,update_time,address,publickey from sys_user_info") ;
+    let mut sql:String = String::from(" select id,city,identity,gender,nickname,head_sculpture,update_time,address,publickey,tag1,tag2 from sys_user_info") ;
 
     // match name.gender {
 
@@ -149,9 +152,9 @@ async fn didrecommand(name: web::Json<Usermark>, pool: web::Data<AppState>) -> i
                     // email:String,
                     // age:Vec<i32>,   //年龄
                     tag: (
-                        "Builder".to_string(),
-                        "Builder".to_string(),
-                        "Builder".to_string(),
+                        s.tag1,
+                        s.tag2,
+                        "Make friends".to_string(),
                     ),
                     identity: s.identity,
                     gender: s.gender, // 0 代表女 ，1代表男，2代表全部
