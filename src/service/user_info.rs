@@ -1,15 +1,35 @@
 use actix_web::web::Json;
 use actix_web::{error, HttpResponse, HttpResponseBuilder, HttpServer, App, web, Responder, get, post};
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Deserializer, Serialize};
 use serde_json;
 use sqlx::mysql::{MySqlPoolOptions, MySqlRow};
 use sqlx::{FromRow, MySql, Pool};
 use crate::AppState;
 
+#[derive(Deserialize, Debug,Clone,Serialize)]
+#[serde(untagged)] // 枚举类型的无标签方式
+enum StrOrU32 {
+    String(String),
+    U32(u32),
+}
+
+fn from_str<'de, D>(deserializer: D) -> Result<u32, D::Error>
+where
+    D: Deserializer<'de>,
+{
+    Ok(match StrOrU32::deserialize(deserializer)? {
+        StrOrU32::String(v) => v.parse().unwrap_or_default(),
+        StrOrU32::U32(v) => v,
+    })
+}
+
 #[derive(Debug,Clone,Serialize, Deserialize,FromRow)]
 struct Wechatmark{
-    id:String ,   //要查询的微信号id
+    #[serde(deserialize_with = "from_str")]
+    id:  u32,   //要查询的微信号id
 }
+
+
 
 #[derive(Debug,Clone,Serialize, Deserialize,FromRow)]
 struct Visiblemark{
@@ -75,9 +95,11 @@ struct UserProfileResponse{
 #[post("/user/info")]
 async fn user_info( user: web::Json<Wechatmark>, pool: web::Data<AppState>) -> impl Responder {
     // format!("Hello {}!", name)
-    println!("接收到信息");
+    let id = user.0.id;
+    println!("接收到信息{:?}",id);
 
-    let sql = format!("select  email,profession,education,gender,nickname,identity,head_sculpture,id ,city,address,tag1,tag2,introduce,did from sys_user_info where id = {:?} ",user.0.id);
+
+    let sql = format!("select  email,profession,education,gender,nickname,identity,head_sculpture,id ,city,address,tag1,tag2,introduce,did from sys_user_info where id = {:?} ",id);
     println!("{:?}",sql.clone());
     // let res = sqlx::query_as::< _,UserInfoResponse>(&sql).fetch_one(&pool.pool).await;
     let res = sqlx::query_as::< MySql,UserInfoSQL>(&sql).fetch_one(&pool.pool).await;
