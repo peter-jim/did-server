@@ -29,6 +29,20 @@ struct Wechatmark{
     id:  u32,   //要查询的微信号id
 }
 
+#[derive(Debug,Clone,Serialize, Deserialize,FromRow)]
+struct ProfileMark{
+    // #[serde(deserialize_with = "from_str")]
+    id:  u32,   //要查询的微信号id
+    nickname:Option<String>,
+    identity:Option<String>,
+    wechat:Option<String>,
+    city:Option<String>,
+    head_sculpture:Option<String>,
+    tag1:Option<String>,
+    tag2:Option<String>,
+    wishtag:Option<Vec<String>>,
+    introduce:Option<String>
+}
 
 
 #[derive(Debug,Clone,Serialize, Deserialize,FromRow)]
@@ -197,6 +211,31 @@ async fn user_profile( user: web::Json<Wechatmark>, pool: web::Data<AppState>) -
     }
     
 }
+
+#[post("/user/updateprofile")]
+async fn update_profile( user: web::Json<ProfileMark>, pool: web::Data<AppState>) -> impl Responder {
+    // format!("Hello {}!", name)
+    println!("接收到信息");
+    let wtag = "";
+    let sql = "update sys_user_info set nickname = ?, identity =?, tag1 = ?,tag2 =?, introduce = ? ,wechat = ?,city = ?  where id = ? ".to_string();
+
+    let update_profile = sqlx::query::<MySql>(&sql)
+    .bind(user.0.nickname)
+    .bind(user.0.identity )
+    .bind(user.0.tag1 )
+    .bind(user.0.tag2 )
+    .bind(user.0.introduce )
+    .bind(user.0.wechat )
+    .bind(user.0.city )
+    .bind(user.0.id )
+    .execute(&pool.pool)
+    .await;
+    println!("{:?}",update_profile);
+   
+  
+    HttpResponse::Ok().body("success")
+}
+
 
 
 #[post("/user/changevisible")]

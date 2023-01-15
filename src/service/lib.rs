@@ -16,6 +16,7 @@ pub mod publish_check;
 pub mod user_frzsnew;
 pub mod user_tag;
 pub mod user_report;
+pub mod profile_check;
 
 
 
